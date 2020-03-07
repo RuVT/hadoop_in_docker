@@ -1,7 +1,7 @@
 FROM centos
 ARG HADOOP_USER=hadoop
 ARG HADOOP_HOME=/usr/local/hadoop
-ARG HADOOP_FILES=hadoop-2.10.0
+ARG HADOOP_FILES=./downloads/hadoop-2.10.0
 ARG HADOOP_CONFIG_FILES=config
 ARG SOURCE_FILES=src
 ARG SSH_CONFIG=ssh/ssh_config
@@ -12,7 +12,8 @@ COPY ${HADOOP_CONFIG_FILES} ${HADOOP_HOME}/etc/hadoop
 COPY ${SOURCE_FILES}/entrypoint.sh /usr/local/bin/
 COPY ${SSH_CONFIG}/ /etc/ssh/
 COPY ${SSH_KEYS} /home/${HADOOP_USER}/.ssh
-COPY ${SSH_KEYS}/*.pub /home/${HADOOP_USER}/.ssh/authorized_keys
+RUN chmod 700 /home/${HADOOP_USER}/.ssh
+RUN chown -R hadoop:hadoop /home/${HADOOP_USER}/.ssh  ${HADOOP_HOME}
 RUN yum update -y
 RUN yum install -y java-1.8.0-openjdk.x86_64 which
 RUN yum install -y openssh-server openssh-clients
