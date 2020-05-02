@@ -20,7 +20,7 @@ RUN chmod 700 /home/${HADOOP_USER}/.ssh
 RUN chown -R hadoop:hadoop /home/${HADOOP_USER}/.ssh  ${HADOOP_HOME}
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
 RUN rm -rf /run/nologin
-RUN echo "export JAVA_HOME=/usr" >> /home/${HADOOP_USER}/.bashrc
+RUN echo "export JAVA_HOME=/usr/lib/jvm/jre-openjdk/" >> /home/${HADOOP_USER}/.bashrc
 RUN echo "export HADOOP_HOME=${HADOOP_HOME}" >> /home/${HADOOP_USER}/.bashrc
 RUN echo "export HADOOP_LIBEXEC_DIR=${HADOOP_HOME}/libexec" >> /home/${HADOOP_USER}/.bashrc
 RUN echo "export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin" >> /home/${HADOOP_USER}/.bashrc
